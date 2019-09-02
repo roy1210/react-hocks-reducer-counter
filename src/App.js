@@ -1,26 +1,48 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
 function App() {
+  const reducer = (state, action) => {
+    switch (action) {
+      case 'ADD':
+        return state + 1;
+      case 'SUB':
+        return state - 1;
+      case 'RES':
+        return (state = 0);
+      default:
+        return state;
+    }
+  };
+
+  // count -> state, dispatch -> action
+  const [count, dispatch] = React.useReducer(reducer, 0);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div>{count}</div>
+      <button onClick={() => dispatch('ADD')}>+</button>
+      <button onClick={() => dispatch('SUB')}>-</button>
+      <button onClick={() => dispatch('RES')}>Reset</button>
+    </>
   );
 }
-
 export default App;
+/*
+const reducer = (state, action) => {
+    const obj = {
+      ADD: state + 1,
+      SUB: state - 1,
+      RES: (state = 0)
+    };
+    return obj[action];
+    OR
+    if (action === 'ADD') {
+      return state + 1;
+    } else if (action === 'SUB') {
+      return state - 1;
+    } else if (action === 'RES') {
+      return (state = 0);
+    }
+  };
+
+*/
